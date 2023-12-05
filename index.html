@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-bs-theme="dark">
+    <div class="container p-3">
+        <div>
+            <h3>Password Manager</h3>
+            <form>
+                <div class="mb-2">
+                    <input id="loginId" type="text" class="form-control form-control-sm" placeholder="login Info">
+                </div>
+                <div class="mb-2">
+                    <input id="domain" type="text" class="form-control form-control-sm" placeholder="Domain">
+                </div>
+                <div class="mb-2">
+                    <input id="secretKey" type="text" class="form-control form-control-sm"
+                        placeholder="Master Password">
+                </div>
+            </form>
+            <div class="row">
+                <div class="col-6">
+                    <button id="generateBtn" type="button" class="btn btn-sm btn-primary">Get Password</button>
+                </div>
+                <div class="col-6">
+                    <div class="input-group input-group-sm ">
+                        <div class="input-group-text">#</div>
+                        <input id="variant" min="0" type="number" class="form-control" placeholder="Variant">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="my-3">
+            <div class="pass-preview d-flex align-items-center rounded relative">
+                <textarea rows="1" id="pass" class="p-2 form-control-plaintext" readonly
+                    placeholder="Your generated Password"></textarea>
+                <button id="copy" type="button" class="btn btn-sm m-2 ml-auto">
+                    <img width="20" src="./static/copy.svg">
+                </button>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between">
+            <button id="saveConfig" class="btn btn-dark btn-sm">
+                <img width="20" src="./static/save.svg">
+            </button>
+
+            <div class="w-100 ms-2">
+                <div class="input-group input-group-sm">
+                    <div class="input-group-text" title="Load pass config">
+                        <img src="./static/load.svg" alt="Load pass config">
+                    </div>
+                    <select id="passConfig" class=" form-select form-select-sm">
+                        <option selected disabled hidden>Select password</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./dist/main.js"></script>
+</body>
+
+</html>

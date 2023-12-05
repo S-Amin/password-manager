@@ -1,0 +1,40 @@
+body{
+    width: 300px;
+}
+
+.copy-btn{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.relative{
+    position: relative;
+}
+
+.pass-preview{
+    background-color: #444;
+}
+
+#pass{
+    white-space: normal;
+}
+
+textarea {
+    resize: none;
+    font-family: monospace;
+}
+textarea:focus-visible{
+    border: none;
+    outline: none;
+}
+textarea:placeholder-shown{
+    font-size: 13px;
+}
+textarea::placeholder {
+    color: #aaa;
+}
+
+option.placeholder{
+    color: #444;
+}

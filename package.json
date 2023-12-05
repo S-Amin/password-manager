@@ -1,0 +1,25 @@
+{
+  "name": "password-manager",
+  "packageManager": "yarn@4.0.2",
+  "private": true,
+  "scripts": {
+    "ext": "yarn node --watch index.js",
+    "build": "yarn clean && tsc && webpack",
+    "build:watch": "yarn clean && tsc && webpack --watch & tsc --watch",
+    "clean": "rm -rf dist"
+  },
+  "browser": {
+    "./myFile.js": "./dist/myFile.js"
+  },
+  "dependencies": {
+    "js-sha256": "^0.10.1"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.253",
+    "pnp-webpack-plugin": "^1.7.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.2",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  }
+}
