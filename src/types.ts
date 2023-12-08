@@ -9,5 +9,6 @@ export interface MessagePayload {
 export interface PassConfig {
   domain: string;
   loginId: string;
-  variantInput: string;
+  variant?: string;
+  length?: string;
 }

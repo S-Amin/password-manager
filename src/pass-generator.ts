@@ -1,9 +1,6 @@
 import { sha256 } from "js-sha256";
-interface PassConfig {
-  name: string;
-  usage: string;
-  length?: number;
-}
+import { PassConfig } from "./types";
+
 export function passGenerator(
   secretKey: string,
   passConfig: PassConfig,
@@ -12,9 +9,9 @@ export function passGenerator(
   const PASS_LENGTH = 17;
   const passLength = passConfig.length || PASS_LENGTH;
 
-  const userCombo = `${secretKey}${passConfig.name}${passConfig.usage}${variant}`;
+  const userCombo = `${secretKey}${passConfig.domain}${passConfig.loginId}${variant}`;
   const longPass = generateHashPass(userCombo);
-  const generatedPassword = findSuitablePass(longPass, passLength);
+  const generatedPassword = findSuitablePass(longPass, +passLength);
   console.log({ generatedPassword });
   return generatedPassword;
 }

@@ -18,12 +18,9 @@ body{
 
 #pass{
     white-space: normal;
+    overflow-wrap: break-word;
 }
 
-textarea {
-    resize: none;
-    font-family: monospace;
-}
 textarea:focus-visible{
     border: none;
     outline: none;

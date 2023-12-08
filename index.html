@@ -25,6 +25,10 @@
                     <input id="secretKey" type="text" class="form-control form-control-sm"
                         placeholder="Master Password">
                 </div>
+                <div class="input-group input-group-sm mb-2">
+                    <div class="input-group-text">Length</div>
+                    <input id="passLength" min="10" max="40" type="number" class="form-control" value="17">
+                </div>
             </form>
             <div class="row">
                 <div class="col-6">
@@ -40,8 +44,7 @@
         </div>
         <div class="my-3">
             <div class="pass-preview d-flex align-items-center rounded relative">
-                <textarea rows="1" id="pass" class="p-2 form-control-plaintext" readonly
-                    placeholder="Your generated Password"></textarea>
+                <pre id="pass" role="textbox" class="p-2 form-control-plaintext"></pre>
                 <button id="copy" type="button" class="btn btn-sm m-2 ml-auto">
                     <img width="20" src="./static/copy.svg">
                 </button>

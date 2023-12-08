@@ -1,17 +1,21 @@
 import { passGenerator } from "./pass-generator";
 import { ExtensionService } from "./extension-worker";
 import { PassConfigStorage, StoredConfig } from "./storage";
+import { PassConfig } from "./types";
 
 let generatedPass = "";
 const genBtn = document.getElementById("generateBtn")!;
 const copyBtn = document.getElementById("copy")!;
 const saveConfigBtn = document.getElementById("saveConfig")!;
 const secretKey = document.getElementById("secretKey");
-const domain = document.getElementById("domain")! as HTMLInputElement;
-const loginId = document.getElementById("loginId")! as HTMLInputElement;
+const domainInput = document.getElementById("domain")! as HTMLInputElement;
+const loginIdInput = document.getElementById("loginId")! as HTMLInputElement;
 const variantInput = document.getElementById("variant")! as HTMLInputElement;
+const passLength = document.getElementById("passLength")! as HTMLInputElement;
 const passPreview = document.getElementById("pass")! as HTMLInputElement;
-const passConfig = document.getElementById("passConfig")! as HTMLSelectElement;
+const passConfigInput = document.getElementById(
+  "passConfig"
+)! as HTMLSelectElement;
 
 onOpen();
 
@@ -20,26 +24,26 @@ onOpen();
 // passUsage.addEventListener("input", eventHandler);
 
 function registerHandlers(store: PassConfigStorage) {
-  genBtn.addEventListener("click", () => genPassHandler());
   copyBtn.addEventListener("click", copyHandler);
   saveConfigBtn.addEventListener("click", () => saveConfigBtnHandler(store));
-  variantInput.addEventListener("change", () =>
-    genPassHandler(+variantInput.value)
+  genBtn.addEventListener("click", genPassHandler);
+  passLength.addEventListener("change", genPassHandler);
+  variantInput.addEventListener("change", genPassHandler);
+  passConfigInput.addEventListener("change", (e) =>
+    loadPassConfigHandler(e, store)
   );
-  passConfig.addEventListener("change", (e) => loadPassConfigHandler(e, store));
 }
 
-function genPassHandler(variant = 1) {
-  if (!variant) {
-    passPreview.value = null;
-    return;
-  }
+function genPassHandler() {
   generatedPass = "";
   const secret = (secretKey as any).value;
-  const usage = domain.value;
-  const name = loginId.value;
-  generatedPass = passGenerator(secret, { name, usage }, variant) || "NONE";
-  passPreview.value = generatedPass;
+  const domain = domainInput.value;
+  const loginId = loginIdInput.value;
+  const length = passLength.value;
+  const variant = +variantInput.value;
+  generatedPass =
+    passGenerator(secret, { domain, loginId, length }, variant) || "NONE";
+  passPreview.innerText = generatedPass;
   variantInput.value = `${variant}`;
 }
 
@@ -48,11 +52,11 @@ function onOpen() {
 
   let extensionService: ExtensionService;
   if (chrome.tabs) {
-    extensionService = new ExtensionService(domain, loginId);
+    extensionService = new ExtensionService(domainInput, loginIdInput);
   }
   try {
     registerHandlers(configStorage);
-    addInputRules([domain, loginId]);
+    addInputRules([domainInput, loginIdInput]);
 
     // the subscription will be executed at the end of the function because of async load
     configStorage.subscribe("LIST_LOADED", loadAllPassConfig);
@@ -73,25 +77,27 @@ async function loadPassConfigHandler(event: any, store: PassConfigStorage) {
   const configString = event.target.value;
   const config = store.getConfig(configString);
 
-  domain.value = config.domain;
-  loginId.value = config.loginId;
-  variantInput.value = config.variantInput;
+  domainInput.value = config.domain;
+  loginIdInput.value = config.loginId;
+  variantInput.value = config.variant || "0";
+  passLength.value = config.length || "";
 }
 
 function loadAllPassConfig(configs?: StoredConfig[]) {
   if (!configs.length) return;
-  passConfig.innerHTML =
+  passConfigInput.innerHTML =
     "<option selected disabled hidden>Select password</option>";
   for (const config of configs) {
-    passConfig.appendChild(new Option(config.value, config.key));
+    passConfigInput.appendChild(new Option(config.value, config.key));
   }
 }
 
 function saveConfigBtnHandler(store: PassConfigStorage) {
-  const config = {
-    domain: domain.value,
-    loginId: loginId.value,
-    variantInput: variantInput.value,
+  const config: PassConfig = {
+    domain: domainInput.value,
+    loginId: loginIdInput.value,
+    variant: variantInput.value,
+    length: passLength.value,
   };
 
   store.addConfig(config);

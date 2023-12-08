@@ -53,7 +53,7 @@ export class PassConfigStorage {
   }
 
   public getConfigName({ domain, loginId }: PassConfig) {
-    return `${domain}: ${loginId.substring(0, 5)}...`;
+    return `${domain}: ${loginId.substring(0, 7)}...`;
   }
 
   public get configs(): StoredConfig[] {
@@ -66,13 +66,13 @@ export class PassConfigStorage {
     }
   }
 
-  private stringifyConfig({ domain, loginId, variantInput }: PassConfig) {
-    return `${domain};${loginId};${variantInput}`.toLowerCase();
+  private stringifyConfig({ domain, loginId, variant, length }: PassConfig) {
+    return `${domain};${loginId};${variant};${length || ""}`.toLowerCase();
   }
 
   private parseConfig(data: string): PassConfig {
-    const [domain, loginId, variantInput] = data.split(";");
-    return { domain, loginId, variantInput };
+    const [domain, loginId, variant, length] = data.split(";");
+    return { domain, loginId, variant, length };
   }
 
   private isEmpty(obj: any) {
