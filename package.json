@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "ext": "yarn node --watch index.js",
-    "server": "tsc --project tsconfig.server.json && node ./dist/server/server.js",
+    "server": "tsc --project tsconfig.server.json && node ./dist/server/server.mjs",
     "build": "yarn clean && tsc && webpack",
     "build:watch": "yarn clean && tsc && webpack --watch & tsc --watch",
     "clean": "rm -rf dist"
