@@ -31,7 +31,7 @@ export class PassConfigStorage {
         set: (k, v) => localStorage.setItem(k, v),
         // TODO make function run async
         get: (k) =>
-          new Promise((res, _) => res({ [k]: localStorage.getItem(k) })),
+          new Promise((res, _) => res({ [k]: localStorage.getItem(k) || "" })),
       };
       this.getAllConfigWeb();
     }

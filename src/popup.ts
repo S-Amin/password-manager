@@ -84,7 +84,7 @@ async function loadPassConfigHandler(event: any, store: PassConfigStorage) {
 }
 
 function loadAllPassConfig(configs?: StoredConfig[]) {
-  if (!configs.length) return;
+  if (!configs?.length) return;
   passConfigInput.innerHTML =
     "<option selected disabled hidden>Select password</option>";
   for (const config of configs) {
