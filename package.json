@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "ext": "yarn node --watch index.js",
+    "server": "tsc --project tsconfig.server.json && node ./dist/server/server.js",
     "build": "yarn clean && tsc && webpack",
     "build:watch": "yarn clean && tsc && webpack --watch & tsc --watch",
     "clean": "rm -rf dist"
@@ -12,10 +13,12 @@
     "./myFile.js": "./dist/myFile.js"
   },
   "dependencies": {
+    "fastify": "^4.24.3",
     "js-sha256": "^0.10.1"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.253",
+    "@types/node": "^20.10.4",
     "pnp-webpack-plugin": "^1.7.0",
     "ts-loader": "^9.5.1",
     "typescript": "^5.3.2",
