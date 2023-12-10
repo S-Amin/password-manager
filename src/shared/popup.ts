@@ -1,5 +1,5 @@
 import { passGenerator } from "./pass-generator";
-import { ExtensionService } from "./extension-worker";
+import { ExtensionService } from "../extension/extension-worker";
 import { PassConfigStorage, StoredConfig } from "./storage";
 import { PassConfig } from "./types";
 

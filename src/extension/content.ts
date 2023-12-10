@@ -1,4 +1,4 @@
-import { MESSAGE_TYPE, type MessagePayload } from "./types";
+import { MESSAGE_TYPE, type MessagePayload } from "../shared/types";
 
 chrome.runtime.onMessage.addListener(
   (msg: MessagePayload, _sender, sendResponse) => {
