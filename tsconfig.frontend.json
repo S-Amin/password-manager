@@ -1,4 +1,9 @@
 {
   "extends": "./tsconfig.base.json",
-  "exclude": ["./webpack.config.js", "./src/server", "./dist/**/*"]
+  "exclude": [
+    "./webpack.config.js",
+    "./src/server",
+    "./dist/**/*",
+    "./public/**/*"
+  ]
 }

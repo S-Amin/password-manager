@@ -1,9 +1,11 @@
 import { passGenerator } from "./pass-generator";
 import { ExtensionService } from "../extension/extension-worker";
 import { PassConfigStorage, StoredConfig } from "./storage";
-import { PassConfig } from "./types";
+import { PassConfig, UIMode } from "./types";
 
 let generatedPass = "";
+const uiMode: UIMode = chrome.tabs ? "EXTENSION" : "WEB";
+
 const genBtn = document.getElementById("generateBtn")!;
 const copyBtn = document.getElementById("copy")!;
 const saveConfigBtn = document.getElementById("saveConfig")!;
@@ -48,23 +50,27 @@ function genPassHandler() {
 }
 
 function onOpen() {
-  const configStorage = new PassConfigStorage(chrome.tabs ? "ext" : "web");
+  const configStorage = new PassConfigStorage(uiMode);
 
   let extensionService: ExtensionService;
   if (chrome.tabs) {
     extensionService = new ExtensionService(domainInput, loginIdInput);
   }
   try {
+    addUIMode();
     registerHandlers(configStorage);
     addInputRules([domainInput, loginIdInput]);
 
     // the subscription will be executed at the end of the function because of async load
     configStorage.subscribe("LIST_LOADED", loadAllPassConfig);
-
-    // loadAllPassConfig(configStorage.configs);
   } catch (e) {
     console.error(e);
   }
+}
+
+function addUIMode() {
+  const body = document.getElementsByTagName("body")[0];
+  body.classList.add(uiMode);
 }
 
 function copyHandler() {

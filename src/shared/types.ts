@@ -12,3 +12,5 @@ export interface PassConfig {
   variant?: string;
   length?: string;
 }
+
+export type UIMode = "EXTENSION" | "WEB";

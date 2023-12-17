@@ -1,6 +1,8 @@
-body{
+body.EXTENSION{
     width: 300px;
 }
+
+
 
 .copy-btn{
     position: absolute;

@@ -1,4 +1,4 @@
-import { PassConfig } from "./types";
+import { PassConfig, UIMode } from "./types";
 
 export type StoredConfig = { key: string; value: string };
 
@@ -19,14 +19,14 @@ export class PassConfigStorage {
   private static configList: StoredConfig[] = [];
   private static subscriptions: Subscriptions[] = [];
 
-  constructor(private env: "ext" | "web") {
-    if (this.env === "ext") {
+  constructor(private env: UIMode) {
+    if (this.env === "EXTENSION") {
       this.storage = {
         set: (k, v) => chrome.storage.local.set({ [k]: v }),
         get: chrome.storage.local.get,
       };
       this.getAllConfigExt();
-    } else if (this.env === "web") {
+    } else if (this.env === "WEB") {
       this.storage = {
         set: (k, v) => localStorage.setItem(k, v),
         // TODO make function run async
@@ -80,8 +80,8 @@ export class PassConfigStorage {
   }
 
   private reloadConfigs() {
-    if (this.env === "ext") this.getAllConfigExt();
-    else if (this.env === "web") this.getAllConfigWeb();
+    if (this.env === "EXTENSION") this.getAllConfigExt();
+    else if (this.env === "WEB") this.getAllConfigWeb();
   }
 
   private getAllConfigExt() {

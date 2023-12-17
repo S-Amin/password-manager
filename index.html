@@ -10,61 +10,68 @@
     <link rel="stylesheet" href="./public/css/style.css">
 </head>
 
-<body data-bs-theme="dark">
-    <div class="container p-3">
-        <div>
-            <h3>Password Manager</h3>
-            <form>
-                <div class="mb-2">
-                    <input id="loginId" type="text" class="form-control form-control-sm" placeholder="login Info">
-                </div>
-                <div class="mb-2">
-                    <input id="domain" type="text" class="form-control form-control-sm" placeholder="Domain">
-                </div>
-                <div class="mb-2">
-                    <input id="secretKey" type="text" class="form-control form-control-sm"
-                        placeholder="Master Password">
-                </div>
-                <div class="input-group input-group-sm mb-2">
-                    <div class="input-group-text">Length</div>
-                    <input id="passLength" min="10" max="40" type="number" class="form-control" value="17">
-                </div>
-            </form>
-            <div class="row">
-                <div class="col-6">
-                    <button id="generateBtn" type="button" class="btn btn-sm btn-primary">Get Password</button>
-                </div>
-                <div class="col-6">
-                    <div class="input-group input-group-sm ">
-                        <div class="input-group-text">#</div>
-                        <input id="variant" min="0" type="number" class="form-control" placeholder="Variant">
+<body data-bs-theme="dark" class="container py-4 px-3">
+    <div class="row gy-5">
+        <div class="col-md-6">
+            <div>
+                <h3>Password Manager</h3>
+                <form>
+                    <div class="mb-2">
+                        <input id="loginId" type="text" class="form-control form-control-sm" placeholder="login Info">
+                    </div>
+                    <div class="mb-2">
+                        <input id="domain" type="text" class="form-control form-control-sm" placeholder="Domain">
+                    </div>
+                    <div class="mb-2">
+                        <input id="secretKey" type="text" class="form-control form-control-sm"
+                            placeholder="Master Password">
+                    </div>
+                    <div class="input-group input-group-sm mb-2">
+                        <div class="input-group-text">Length</div>
+                        <input id="passLength" min="10" max="40" type="number" class="form-control" value="17">
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-6">
+                        <button id="generateBtn" type="button" class="btn btn-sm btn-primary">Get Password</button>
+                    </div>
+                    <div class="col-6">
+                        <div class="input-group input-group-sm ">
+                            <div class="input-group-text">#</div>
+                            <input id="variant" min="0" type="number" class="form-control" placeholder="Variant">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="my-3">
-            <div class="pass-preview d-flex align-items-center rounded relative">
-                <pre id="pass" role="textbox" class="p-2 form-control-plaintext"></pre>
-                <button id="copy" type="button" class="btn btn-sm m-2 ml-auto">
-                    <img width="20" src="./public/icons/copy.svg">
+            <div class="my-3">
+                <div class="pass-preview d-flex align-items-center rounded relative">
+                    <pre id="pass" role="textbox" class="p-2 form-control-plaintext"></pre>
+                    <button id="copy" type="button" class="btn btn-sm m-2 ml-auto">
+                        <img width="20" src="./public/icons/copy.svg">
+                    </button>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <button id="saveConfig" class="btn btn-dark btn-sm">
+                    <img width="20" src="./public/icons/save.svg">
                 </button>
-            </div>
-        </div>
-        <div class="d-flex justify-content-between">
-            <button id="saveConfig" class="btn btn-dark btn-sm">
-                <img width="20" src="./public/icons/save.svg">
-            </button>
 
-            <div class="w-100 ms-2">
-                <div class="input-group input-group-sm">
-                    <div class="input-group-text" title="Load pass config">
-                        <img src="./public/icons/load.svg" alt="Load pass config">
+                <div class="w-100 ms-2">
+                    <div class="input-group input-group-sm">
+                        <div class="input-group-text" title="Load pass config">
+                            <img src="./public/icons/load.svg" alt="Load pass config">
+                        </div>
+                        <select id="passConfig" class=" form-select form-select-sm">
+                            <option selected disabled hidden>Select password</option>
+                        </select>
                     </div>
-                    <select id="passConfig" class=" form-select form-select-sm">
-                        <option selected disabled hidden>Select password</option>
-                    </select>
                 </div>
             </div>
+        </div>
+        <div class="col-md-6">
+            <h3>How to use:</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita voluptatum recusandae accusantium
+                tenetur magnam aliquid quis, rem delectus fugiat voluptas.</p>
         </div>
     </div>
     <script src="./public/js/main.js"></script>

@@ -3,11 +3,12 @@
   "packageManager": "yarn@4.0.2",
   "private": true,
   "scripts": {
-    "ext": "yarn node --watch index.js",
-    "server": "tsc --project tsconfig.server.json && node ./dist/server/server.mjs",
+    "server": "yarn ts:server && node ./dist/server/server.mjs",
     "build": "yarn build:frontend && webpack",
-    "build:watch": "yarn build:frontend && webpack --watch & tsc --watch",
-    "build:frontend": "yarn clean && tsc --project tsconfig.frontend.json",
+    "build:watch": "yarn build:frontend && webpack --watch & yarn ts:frontend --watch",
+    "build:frontend": "yarn clean && yarn ts:frontend",
+    "ts:frontend": "tsc --project tsconfig.frontend.json",
+    "ts:server": "tsc --project tsconfig.server.json",
     "clean": "rm -rf dist && rm -rf public/js"
   },
   "browser": {

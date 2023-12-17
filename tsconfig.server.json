@@ -6,5 +6,5 @@
     "module": "ESNext"
   },
   "include": ["src/server/**/*"],
-  "exclude": ["./webpack.config.js", "./dist/**/*"]
+  "exclude": ["./webpack.config.js", "./dist/**/*", "./public/**/*"]
 }
