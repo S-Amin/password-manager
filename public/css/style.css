@@ -37,3 +37,26 @@ textarea::placeholder {
 option.placeholder{
     color: #444;
 }
+
+.my-tooltip {
+    position:relative;
+}
+  
+.my-tooltip:hover {
+    color: #11ACDC;
+/* font-size: 1.2rem; */
+}
+.my-tooltip:hover::before {
+    content: attr(data-description);
+    font-size: .7rem;
+    color: black;
+    border-radius: 5px;
+    border-bottom-left-radius: 0;
+    background-color: #c589f9;
+    top: -25px;
+    left: 0;
+    position: absolute;
+    z-index: 1000;
+    padding: 2px 4px;
+    width: 100px;
+}

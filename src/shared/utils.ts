@@ -1,3 +1,3 @@
 export function removeWhiteSpace(val: string) {
-  return val.replace(/\s+/g, "");
+    return val.replace(/\s+/g, '')
 }
