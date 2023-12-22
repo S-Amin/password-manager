@@ -3,16 +3,11 @@
   "packageManager": "yarn@4.0.2",
   "private": true,
   "scripts": {
-    "server": "yarn ts:server && node ./dist/server/server.mjs",
-    "build": "yarn build:frontend && webpack",
-    "build:watch": "yarn build:frontend && webpack --watch & yarn ts:frontend --watch",
-    "build:frontend": "yarn clean && yarn ts:frontend",
-    "ts:frontend": "tsc --project tsconfig.frontend.json",
-    "ts:server": "tsc --project tsconfig.server.json",
+    "server": "rm -rf dist/server && yarn tsc:server && node ./dist/server/server.js",
+    "build:frontend": "rm -rf public/js && yarn tsc:frontend && webpack",
+    "tsc:frontend": "tsc --project tsconfig.frontend.json",
+    "tsc:server": "tsc --project tsconfig.server.json",
     "clean": "rm -rf dist && rm -rf public/js"
-  },
-  "browser": {
-    "./myFile.js": "./dist/myFile.js"
   },
   "dependencies": {
     "@fastify/static": "^6.12.0",

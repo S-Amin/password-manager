@@ -1,4 +1,4 @@
-import { PassConfig, UIMode } from "./types";
+import { PassConfig, UIMode } from "./types.ts";
 
 export type StoredConfig = { key: string; value: string };
 

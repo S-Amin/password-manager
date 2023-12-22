@@ -1,16 +1,16 @@
 import Fastify from "fastify";
 import { createReadStream } from "node:fs";
 import fastifyStatic from "@fastify/static";
+import path from "node:path";
 
 const fastify = Fastify({
   logger: true,
 });
 
-const root = import.meta.url;
-console.log("root:", new URL("../../public", import.meta.url));
+const root = path.join(__dirname, "../../public"); //import.meta.url;
 
 fastify.register(fastifyStatic, {
-  root: new URL("../../public", import.meta.url),
+  root,
   prefix: "/public/", // optional: default '/'
   // constraints: { host: "example.com" }, // optional: default {}
 });
@@ -21,10 +21,7 @@ fastify.get("/", (_request, reply) => {
 });
 
 fastify.get("/password-manager", (_request, reply) => {
-  const htmlPath = new URL("../../index.html", import.meta.url);
-  console.log({ htmlPath });
-  const stream = createReadStream(htmlPath);
-  reply.type("text/html").send(stream);
+  reply.sendFile("index.html");
 });
 
 // Run the server!

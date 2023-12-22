@@ -4,11 +4,8 @@
     "outDir": "./dist/",
     "noImplicitAny": true,
     "sourceMap": true,
-    "target": "ES5",
-    "module": "ES6",
     "allowJs": true,
-    "lib": ["es2015", "dom"],
+    "lib": ["ES2015", "DOM"],
     "moduleResolution": "Node"
-  },
-  "exclude": ["./webpack.config.js", "./dist/**/*", "./public/**/*"]
+  }
 }

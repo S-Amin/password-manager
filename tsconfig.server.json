@@ -1,9 +1,16 @@
 {
-  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "rootDir": "./src/server",
     "outDir": "./dist/server",
-    "module": "ESNext"
+    // "target": "ESNext",
+    // "module": "ESNext",
+    // "moduleResolution": "Node",
+    // "lib": ["esnext"],
+    "esModuleInterop": true,
+    // "allowSyntheticDefaultImports": true,
+    // "sourceMap": true,
+    // "baseUrl": "src",
+    "strict": true
   },
   "include": ["src/server/**/*"],
   "exclude": ["./webpack.config.js", "./dist/**/*", "./public/**/*"]

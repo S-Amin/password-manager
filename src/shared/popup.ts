@@ -1,7 +1,7 @@
-import { passGenerator } from "./pass-generator";
-import { ExtensionService } from "../extension/extension-worker";
-import { PassConfigStorage, StoredConfig } from "./storage";
-import { PassConfig, UIMode } from "./types";
+import { passGenerator } from "./pass-generator.ts";
+import { ExtensionService } from "../extension/extension-worker.ts";
+import { PassConfigStorage, StoredConfig } from "./storage.ts";
+import { PassConfig, UIMode } from "./types.ts";
 
 let generatedPass = "";
 const uiMode: UIMode = chrome.tabs ? "EXTENSION" : "WEB";

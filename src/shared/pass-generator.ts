@@ -1,5 +1,5 @@
 import { sha256 } from "js-sha256";
-import { PassConfig } from "./types";
+import { PassConfig } from "./types.ts";
 
 export function passGenerator(
   secretKey: string,

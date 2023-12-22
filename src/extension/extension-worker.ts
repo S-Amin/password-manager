@@ -1,5 +1,5 @@
-import { MESSAGE_TYPE, type MessagePayload } from "../shared/types";
-import { removeWhiteSpace } from "../shared/utils";
+import { MESSAGE_TYPE, type MessagePayload } from "../shared/types.ts";
+import { removeWhiteSpace } from "../shared/utils.ts";
 
 export class ExtensionService {
   constructor(
