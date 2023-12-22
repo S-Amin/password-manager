@@ -10,6 +10,7 @@ const genBtn = document.getElementById("generateBtn")!;
 const copyBtn = document.getElementById("copy")!;
 const saveConfigBtn = document.getElementById("saveConfig")!;
 const secretKey = document.getElementById("secretKey");
+const toast = document.querySelector("#toast");
 const domainInput = document.getElementById("domain")! as HTMLInputElement;
 const loginIdInput = document.getElementById("loginId")! as HTMLInputElement;
 const variantInput = document.getElementById("variant")! as HTMLInputElement;
@@ -20,6 +21,9 @@ const passConfigInput = document.getElementById(
 )! as HTMLSelectElement;
 
 onOpen();
+setTimeout(() => {
+  toast?.setAttribute("message", "new message ");
+}, 1000);
 
 /*--  Can be added to react on user typing --*/
 // passName.addEventListener("input", eventHandler);
