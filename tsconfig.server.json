@@ -2,14 +2,11 @@
   "compilerOptions": {
     "rootDir": "./src/server",
     "outDir": "./dist/server",
-    // "target": "ESNext",
-    // "module": "ESNext",
-    // "moduleResolution": "Node",
-    // "lib": ["esnext"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "esModuleInterop": true,
-    // "allowSyntheticDefaultImports": true,
-    // "sourceMap": true,
-    // "baseUrl": "src",
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
     "strict": true
   },
   "include": ["src/server/**/*"],
