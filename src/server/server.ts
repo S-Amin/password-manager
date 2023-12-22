@@ -1,5 +1,4 @@
 import Fastify from "fastify";
-import { createReadStream } from "node:fs";
 import fastifyStatic from "@fastify/static";
 import path from "node:path";
 
