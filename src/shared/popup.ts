@@ -2,6 +2,7 @@ import { passGenerator } from './pass-generator.ts'
 import { ExtensionService } from '../extension/extension-worker.ts'
 import { PassConfigStorage, StoredConfig } from './storage.ts'
 import { PassConfig, UIMode } from './types.ts'
+import { FormStore } from './formStore.ts'
 
 let generatedPass = ''
 const uiMode: UIMode = chrome.tabs ? 'EXTENSION' : 'WEB'
@@ -25,6 +26,20 @@ setTimeout(() => {
     toast?.setAttribute('message', 'new message ')
 }, 1000)
 
+const ff = new FormStore({
+    loginInput: 'loginId',
+    domainInput: 'domain',
+    masterPassInput: 'secretKey',
+    passLengthInput: 'passLength',
+    variantInput: 'variant',
+    generateBtn: 'generateBtn',
+    resetBtn: 'resetFrom',
+    copyBtn: 'copy',
+    saveBtn: 'saveConfig',
+})
+setTimeout(() => {
+    console.log('form store: ', ff)
+}, 2000)
 /*--  Can be added to react on user typing --*/
 // passName.addEventListener("input", eventHandler);
 // passUsage.addEventListener("input", eventHandler);
