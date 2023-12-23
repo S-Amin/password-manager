@@ -7,85 +7,83 @@ import { FormStore } from './formStore.ts'
 let generatedPass = ''
 const uiMode: UIMode = chrome.tabs ? 'EXTENSION' : 'WEB'
 
-const genBtn = document.getElementById('generateBtn')!
-const copyBtn = document.getElementById('copy')!
-const saveConfigBtn = document.getElementById('saveConfig')!
-const secretKey = document.getElementById('secretKey')
-const toast = document.querySelector('#toast')
-const domainInput = document.getElementById('domain')! as HTMLInputElement
-const loginIdInput = document.getElementById('loginId')! as HTMLInputElement
-const variantInput = document.getElementById('variant')! as HTMLInputElement
-const passLength = document.getElementById('passLength')! as HTMLInputElement
-const passPreview = document.getElementById('pass')! as HTMLInputElement
-const passConfigInput = document.getElementById(
-    'passConfig'
-)! as HTMLSelectElement
+// const genBtn = document.getElementById('generateBtn')!
+// const copyBtn = document.getElementById('copy')!
+// const saveConfigBtn = document.getElementById('saveConfig')!
+// const secretKey = document.getElementById('secretKey')
+// const toast = document.querySelector('#toast')
+// const domainInput = document.getElementById('domain')! as HTMLInputElement
+// const loginIdInput = document.getElementById('loginId')! as HTMLInputElement
+// const variantInput = document.getElementById('variant')! as HTMLInputElement
+// const passLength = document.getElementById('passLength')! as HTMLInputElement
+// const passPreview = document.getElementById('pass')! as HTMLInputElement
+// const passConfigInput = document.getElementById(
+//     'passConfig'
+// )! as HTMLSelectElement
 
-onOpen()
-setTimeout(() => {
-    toast?.setAttribute('message', 'new message ')
-}, 1000)
+// onOpen()
 
-const ff = new FormStore({
+const formStore = new FormStore({
     loginInput: 'loginId',
     domainInput: 'domain',
-    masterPassInput: 'secretKey',
+    masterPassInput: 'masterPass',
     passLengthInput: 'passLength',
     variantInput: 'variant',
     generateBtn: 'generateBtn',
     resetBtn: 'resetFrom',
     copyBtn: 'copy',
     saveBtn: 'saveConfig',
+    toggleMasterPassVisibility: 'showHidePass',
 })
-setTimeout(() => {
-    console.log('form store: ', ff)
-}, 2000)
+// setTimeout(() => {
+//     console.log('form store: ', formStore)
+// }, 2000)
 /*--  Can be added to react on user typing --*/
 // passName.addEventListener("input", eventHandler);
 // passUsage.addEventListener("input", eventHandler);
 
-function registerHandlers(store: PassConfigStorage) {
-    copyBtn.addEventListener('click', copyHandler)
-    saveConfigBtn.addEventListener('click', () => saveConfigBtnHandler(store))
-    genBtn.addEventListener('click', genPassHandler)
-    passLength.addEventListener('change', genPassHandler)
-    variantInput.addEventListener('change', genPassHandler)
-    passConfigInput.addEventListener('change', (e) =>
-        loadPassConfigHandler(e, store)
-    )
-}
+// function registerHandlers(store: PassConfigStorage) {
+//     copyBtn.addEventListener('click', copyHandler)
+//     saveConfigBtn.addEventListener('click', () => saveConfigBtnHandler(store))
+//     genBtn.addEventListener('click', genPassHandler)
+//     passLength.addEventListener('change', genPassHandler)
+//     variantInput.addEventListener('change', genPassHandler)
+//     passConfigInput.addEventListener('change', (e) =>
+//         loadPassConfigHandler(e, store)
+//     )
+// }
 
-function genPassHandler() {
-    generatedPass = ''
-    const secret = (secretKey as any).value
-    const domain = domainInput.value
-    const loginId = loginIdInput.value
-    const length = passLength.value
-    const variant = +variantInput.value
-    generatedPass =
-        passGenerator(secret, { domain, loginId, length }, variant) || 'NONE'
-    passPreview.innerText = generatedPass
-    variantInput.value = `${variant}`
-}
+// function genPassHandler() {
+//     generatedPass = ''
+//     const secret = (secretKey as any).value
+//     const domain = domainInput.value
+//     const loginId = loginIdInput.value
+//     const length = passLength.value
+//     const variant = +variantInput.value
+//     generatedPass =
+//         passGenerator(secret, { domain, loginId, length }, variant) || 'NONE'
+//     passPreview.innerText = generatedPass
+//     variantInput.value = `${variant}`
+// }
 
-function onOpen() {
-    const configStorage = new PassConfigStorage(uiMode)
+// function onOpen() {
+//     const configStorage = new PassConfigStorage(uiMode)
 
-    let extensionService: ExtensionService
-    if (chrome.tabs) {
-        extensionService = new ExtensionService(domainInput, loginIdInput)
-    }
-    try {
-        addUIMode()
-        registerHandlers(configStorage)
-        addInputRules([domainInput, loginIdInput])
+//     let extensionService: ExtensionService
+//     if (chrome.tabs) {
+//         extensionService = new ExtensionService(domainInput, loginIdInput)
+//     }
+//     try {
+//         addUIMode()
+//         registerHandlers(configStorage)
+//         addInputRules([domainInput, loginIdInput])
 
-        // the subscription will be executed at the end of the function because of async load
-        configStorage.subscribe('LIST_LOADED', loadAllPassConfig)
-    } catch (e) {
-        console.error(e)
-    }
-}
+//         // the subscription will be executed at the end of the function because of async load
+//         configStorage.subscribe('LIST_LOADED', loadAllPassConfig)
+//     } catch (e) {
+//         console.error(e)
+//     }
+// }
 
 function addUIMode() {
     const body = document.getElementsByTagName('body')[0]
@@ -98,35 +96,35 @@ function copyHandler() {
     })
 }
 
-async function loadPassConfigHandler(event: any, store: PassConfigStorage) {
-    const configString = event.target.value
-    const config = store.getConfig(configString)
+// async function loadPassConfigHandler(event: any, store: PassConfigStorage) {
+//     const configString = event.target.value
+//     const config = store.getConfig(configString)
 
-    domainInput.value = config.domain
-    loginIdInput.value = config.loginId
-    variantInput.value = config.variant || '0'
-    passLength.value = config.length || ''
-}
+//     domainInput.value = config.domain
+//     loginIdInput.value = config.loginId
+//     variantInput.value = config.variant || '0'
+//     passLength.value = config.length || ''
+// }
 
-function loadAllPassConfig(configs?: StoredConfig[]) {
-    if (!configs?.length) return
-    passConfigInput.innerHTML =
-        '<option selected disabled hidden>Select password</option>'
-    for (const config of configs) {
-        passConfigInput.appendChild(new Option(config.value, config.key))
-    }
-}
+// function loadAllPassConfig(configs?: StoredConfig[]) {
+//     if (!configs?.length) return
+//     passConfigInput.innerHTML =
+//         '<option selected disabled hidden>Select password</option>'
+//     for (const config of configs) {
+//         passConfigInput.appendChild(new Option(config.value, config.key))
+//     }
+// }
 
-function saveConfigBtnHandler(store: PassConfigStorage) {
-    const config: PassConfig = {
-        domain: domainInput.value,
-        loginId: loginIdInput.value,
-        variant: variantInput.value,
-        length: passLength.value,
-    }
+// function saveConfigBtnHandler(store: PassConfigStorage) {
+//     const config: PassConfig = {
+//         domain: domainInput.value,
+//         loginId: loginIdInput.value,
+//         variant: variantInput.value,
+//         length: passLength.value,
+//     }
 
-    store.addConfig(config)
-}
+//     store.addConfig(config)
+// }
 
 function addInputRules(inputs: HTMLInputElement[]) {
     for (const input of inputs) {

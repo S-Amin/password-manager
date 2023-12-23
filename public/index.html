@@ -22,9 +22,14 @@
                     <div class="mb-2">
                         <input id="domain" type="text" class="form-control form-control-sm" placeholder="Domain">
                     </div>
-                    <div class="mb-2">
-                        <input id="secretKey" type="text" class="form-control form-control-sm"
+                    <div class="mb-2 relative">
+                        <input id="masterPass" type="password" class="form-control form-control-sm"
                             placeholder="Master Password">
+                        <button type="button" id="showHidePass"
+                            class="my-tooltip my-tooltip-left btn btn-sm p-0 border-0" data-desc="Show Pass ">
+                            <img id="visibleIcon" class="hideElm" width="20" src="./public/icons/visible.svg">
+                            <img id="hiddenIcon" width="20" src="./public/icons/hidden.svg">
+                        </button>
                     </div>
                     <div class="input-group input-group-sm mb-2">
                         <div class="input-group-text">Length</div>
@@ -46,16 +51,17 @@
             <div class="my-3">
                 <div class="pass-preview d-flex align-items-center rounded relative">
                     <pre id="pass" role="textbox" class="p-2 form-control-plaintext"></pre>
-                    <button id="copy" type="button" class="btn btn-sm m-2 ml-auto">
+                    <button id="copy" type="button" class="my-tooltip my-tooltip-left btn btn-sm m-2 ml-auto"
+                        data-desc="Copy Pass">
                         <img width="20" src="./public/icons/copy.svg">
                     </button>
                 </div>
             </div>
             <div class="d-flex justify-content-between">
-                <button id="saveConfig" class="my-tooltip btn btn-dark btn-sm" data-description="Save Button">
+                <button id="saveConfig" class="my-tooltip btn btn-dark btn-sm" data-desc="Save Pass">
                     <img width="20" src="./public/icons/save.svg">
                 </button>
-                <button id="resetFrom" class="my-tooltip btn btn-dark btn-sm" data-description="Reset From">
+                <button id="resetFrom" class="my-tooltip btn btn-dark btn-sm" data-desc="Reset From">
                     <img width="20" src="./public/icons/refresh.svg">
                 </button>
 

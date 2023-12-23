@@ -12,6 +12,8 @@ body.EXTENSION{
 
 .relative{
     position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .pass-preview{
@@ -21,6 +23,20 @@ body.EXTENSION{
 #pass{
     white-space: normal;
     overflow-wrap: break-word;
+}
+
+#masterPass{
+    padding-right: 40px;
+}
+
+#showHidePass{
+    position: absolute;
+    right: 7px;
+    cursor: pointer;
+}
+
+.hideElm{
+    display: none;
 }
 
 textarea:focus-visible{
@@ -47,16 +63,22 @@ option.placeholder{
 /* font-size: 1.2rem; */
 }
 .my-tooltip:hover::before {
-    content: attr(data-description);
+    content: attr(data-desc);
     font-size: .7rem;
     color: black;
     border-radius: 5px;
     border-bottom-left-radius: 0;
     background-color: #c589f9;
     top: -25px;
-    left: 7px;
+    left: 50%;
     position: absolute;
     z-index: 1000;
     padding: 2px 4px;
-    width: 100px;
+    min-width: 100px;
+}
+.my-tooltip-left:hover::before{
+    left: auto;
+    right: 50%;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 0;
 }
