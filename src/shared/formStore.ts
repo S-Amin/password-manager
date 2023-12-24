@@ -89,7 +89,7 @@ export class FormStore {
 
     private selectElementsFromDom() {
         for (const [k, id] of Object.entries(this.formPartsId)) {
-            this.partsElm[k] = document.getElementById(id)
+            ;(this.partsElm as any)[k] = document.getElementById(id)
         }
     }
 

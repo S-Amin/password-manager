@@ -1,26 +1,27 @@
 {
-  "name": "password-manager",
-  "packageManager": "yarn@4.0.2",
-  "private": true,
-  "scripts": {
-    "server": "rm -rf dist/server && yarn tsc:server && node ./dist/server/server.js",
-    "build:frontend": "rm -rf public/js && yarn tsc:frontend && webpack",
-    "tsc:frontend": "tsc --project tsconfig.frontend.json",
-    "tsc:server": "tsc --project tsconfig.server.json",
-    "clean": "rm -rf dist && rm -rf public/js"
-  },
-  "dependencies": {
-    "@fastify/static": "^6.12.0",
-    "fastify": "^4.24.3",
-    "js-sha256": "^0.10.1"
-  },
-  "devDependencies": {
-    "@types/chrome": "^0.0.253",
-    "@types/node": "^20.10.4",
-    "pnp-webpack-plugin": "^1.7.0",
-    "ts-loader": "^9.5.1",
-    "typescript": "^5.3.2",
-    "webpack": "^5.89.0",
-    "webpack-cli": "^5.1.4"
-  }
+    "name": "password-manager",
+    "packageManager": "yarn@4.0.2",
+    "private": true,
+    "scripts": {
+        "server": "rm -rf dist/server && yarn tsc:server && node ./dist/server/server.js",
+        "build:frontend": "rm -rf public/js && yarn tsc:frontend && webpack --mode production",
+        "start:frontend": "rm -rf public/js && yarn tsc:frontend && webpack --mode development --watch",
+        "tsc:frontend": "tsc --project tsconfig.frontend.json",
+        "tsc:server": "tsc --project tsconfig.server.json",
+        "clean": "rm -rf dist && rm -rf public/js"
+    },
+    "dependencies": {
+        "@fastify/static": "^6.12.0",
+        "fastify": "^4.24.3",
+        "js-sha256": "^0.10.1"
+    },
+    "devDependencies": {
+        "@types/chrome": "^0.0.253",
+        "@types/node": "^20.10.4",
+        "pnp-webpack-plugin": "^1.7.0",
+        "ts-loader": "^9.5.1",
+        "typescript": "^5.3.2",
+        "webpack": "^5.89.0",
+        "webpack-cli": "^5.1.4"
+    }
 }
