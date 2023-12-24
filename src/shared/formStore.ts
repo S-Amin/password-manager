@@ -1,5 +1,6 @@
 import { PassGeneratorService } from './passGeneratorService.ts'
-import { PassConfigStorage } from './storage.ts'
+import { PassConfigStorage, StoredConfig } from './storage.ts'
+import { PassConfig } from './types.ts'
 
 interface InputParts<T> {
     loginInput: T
@@ -21,14 +22,20 @@ interface ElementParts<T> {
     passPreview: T
 }
 
+interface SelectParts<T> {
+    passConfigList: T
+}
+
 type FromStorePartsId = InputParts<string> &
     BtnParts<string> &
-    ElementParts<string>
+    ElementParts<string> &
+    SelectParts<string>
 
 export class FormStore {
     private partsElm: InputParts<HTMLInputElement> &
         BtnParts<HTMLElement> &
-        ElementParts<HTMLElement> = {} as any
+        ElementParts<HTMLElement> &
+        SelectParts<HTMLSelectElement> = {} as any
 
     private generatedPass: string | null = ''
 
@@ -46,6 +53,13 @@ export class FormStore {
             this.bindGenerateBtn()
             this.bindVariantInput()
             this.bindPassLengthInput()
+            this.bindPassConfigList()
+            this.bindSaveBtn()
+
+            this.passConfigStorage.subscribe(
+                'LIST_LOADED',
+                this.loadAllPassConfig.bind(this)
+            )
         } catch (err) {
             console.error(err)
         }
@@ -65,6 +79,9 @@ export class FormStore {
     }
     get masterPass() {
         return this.partsElm['masterPassInput']
+    }
+    get passConfigList() {
+        return this.partsElm['passConfigList']
     }
     get allParts() {
         return this.partsElm
@@ -93,6 +110,7 @@ export class FormStore {
                     elm.value = elm.min
                 }
             }
+            this.partsElm['passPreview'].innerHTML = ''
         })
     }
 
@@ -153,5 +171,48 @@ export class FormStore {
         this.passLength.addEventListener('change', () => {
             this.generatePass()
         })
+    }
+
+    private bindPassConfigList() {
+        this.passConfigList.addEventListener('change', (e: any) => {
+            const value = e.target.value
+            this.loadPassConfig(value)
+        })
+    }
+
+    private bindSaveBtn() {
+        this.partsElm['saveBtn'].addEventListener('click', () =>
+            this.savePassConfig()
+        )
+    }
+
+    private loadPassConfig(configStr: string) {
+        const config = this.passConfigStorage.getConfig(configStr)
+        this.domain.value = config.domain
+        this.loginId.value = config.loginId
+        this.passLength.value = config.length
+        this.variant.value = config.variant
+    }
+
+    private savePassConfig() {
+        const config: PassConfig = {
+            domain: this.domain.value,
+            loginId: this.loginId.value,
+            variant: this.variant.value,
+            length: this.passLength.value,
+        }
+
+        this.passConfigStorage.addConfig(config)
+    }
+
+    private loadAllPassConfig(configs?: StoredConfig[]) {
+        if (!configs?.length) return
+        this.passConfigList.innerHTML =
+            '<option selected disabled hidden>Select password</option>'
+        for (const config of configs) {
+            this.passConfigList.appendChild(
+                new Option(config.value, config.key)
+            )
+        }
     }
 }

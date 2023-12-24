@@ -71,11 +71,11 @@
                 </button>
 
                 <div class="w-100 ms-2">
-                    <div class="input-group input-group-sm">
+                    <div class="input-group input-group-sm my-tooltip my-tooltip-left" data-desc="List of All config">
                         <div class="input-group-text" title="Load pass config">
                             <img src="./public/icons/load.svg" alt="Load pass config">
                         </div>
-                        <select id="passConfig" class=" form-select form-select-sm">
+                        <select id="passConfigList" class="form-select form-select-sm">
                             <option selected disabled hidden>Select password</option>
                         </select>
                     </div>
@@ -96,7 +96,12 @@
             </div>
             <div id="loginIdInfo">
                 <strong>- LoginId:</strong>
-                <p>Please enter the login ID associated with the password.</p>
+                <p>
+                    Including your login ID is essential for the tool to tailor the generated password specifically to
+                    your login credentials. This personalized approach enhances security by incorporating your unique
+                    identifier into the SHA256-based password generation process, ensuring a password that is both
+                    robust and individualized for your account.
+                </p>
             </div>
             <div id="masterPassInfo">
                 <strong>- Master Password:</strong>

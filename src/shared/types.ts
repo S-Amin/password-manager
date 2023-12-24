@@ -9,8 +9,8 @@ export interface MessagePayload {
 export interface PassConfig {
     domain: string
     loginId: string
-    variant?: string
-    length?: string
+    variant: string
+    length: string
 }
 
 export type UIMode = 'EXTENSION' | 'WEB'
