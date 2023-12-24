@@ -16,24 +16,28 @@
             <div>
                 <h3>Password Manager</h3>
                 <form>
-                    <div class="mb-2">
-                        <input id="loginId" type="text" class="form-control form-control-sm" placeholder="login Info">
+                    <div class="mb-2 relative">
+                        <input id="domain" type="text" class="form-control form-control-sm"
+                            placeholder="Name Of the site or app">
+                        <img class="floatingIcon" src="/public/icons/help.svg" alt="" data-target="domainInfo">
                     </div>
-                    <div class="mb-2">
-                        <input id="domain" type="text" class="form-control form-control-sm" placeholder="Domain">
+                    <div class="mb-2 relative">
+                        <input id="loginId" type="text" class="form-control form-control-sm" placeholder="login Info">
+                        <img class="floatingIcon" src="/public/icons/help.svg" alt="" data-target="loginIdInfo">
                     </div>
                     <div class="mb-2 relative">
                         <input id="masterPass" type="password" class="form-control form-control-sm"
                             placeholder="Master Password">
                         <button type="button" id="showHidePass"
-                            class="my-tooltip my-tooltip-left btn btn-sm p-0 border-0" data-desc="Show Pass ">
+                            class="my-tooltip my-tooltip-left btn btn-sm p-0 border-0 floatingIcon"
+                            data-desc="Show Pass ">
                             <img id="visibleIcon" class="hideElm" width="20" src="./public/icons/visible.svg">
                             <img id="hiddenIcon" width="20" src="./public/icons/hidden.svg">
                         </button>
                     </div>
                     <div class="input-group input-group-sm mb-2">
-                        <div class="input-group-text">Length</div>
-                        <input id="passLength" min="10" max="40" type="number" class="form-control" value="17">
+                        <div class="input-group-text my-tooltip" data-desc="Length of Pass">Length</div>
+                        <input id="passLength" min="17" max="40" type="number" class="form-control" value="17">
                     </div>
                 </form>
                 <div class="row">
@@ -41,16 +45,17 @@
                         <button id="generateBtn" type="button" class="btn btn-sm btn-primary">Get Password</button>
                     </div>
                     <div class="col-6">
-                        <div class="input-group input-group-sm ">
+                        <div class="input-group input-group-sm my-tooltip my-tooltip-left" data-desc="Variant of Pass">
                             <div class="input-group-text">#</div>
-                            <input id="variant" min="0" type="number" class="form-control" placeholder="Variant">
+                            <input id="variant" min="1" value="1" type="number" class="form-control"
+                                placeholder="Variant">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="my-3">
                 <div class="pass-preview d-flex align-items-center rounded relative">
-                    <pre id="pass" role="textbox" class="p-2 form-control-plaintext"></pre>
+                    <pre id="passPreview" role="textbox" class="p-2 form-control-plaintext"></pre>
                     <button id="copy" type="button" class="my-tooltip my-tooltip-left btn btn-sm m-2 ml-auto"
                         data-desc="Copy Pass">
                         <img width="20" src="./public/icons/copy.svg">
@@ -77,10 +82,42 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <h3>How to use:</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita voluptatum recusandae accusantium
-                tenetur magnam aliquid quis, rem delectus fugiat voluptas.</p>
+        <div class="col-md-6 text-muted animation">
+            <h4>How to use:</h4>
+            <p>
+                This tool ensures security by generating unique passwords using SHA256 without storing them on your
+                machine or any server. It achieves this by using and combining the provided information for each login.
+            </p>
+            <div id="domainInfo">
+                <strong>- Site or App:</strong>
+                <p>
+                    Specify the website or app name for which you intend to use the password.
+                </p>
+            </div>
+            <div id="loginIdInfo">
+                <strong>- LoginId:</strong>
+                <p>Please enter the login ID associated with the password.</p>
+            </div>
+            <div id="masterPassInfo">
+                <strong>- Master Password:</strong>
+                <p>This is the master password known only to you, used for generating unique passwords.</p>
+            </div>
+            <div id="passLengthInfo">
+                <strong>- Password Length:</strong>
+                <p>Specify the desired length for the login credential password.</p>
+            </div>
+            <div id="variantInfo">
+                <strong>- Password Variant:</strong>
+                <p>
+                    Create unique passwords for the same credential using this option.
+                </p>
+            </div>
+            <div id="saveInfo">
+                <strong>- Save Button:</strong>
+                <p>
+                    Store entered information locally for easy retrieval of your password.
+                </p>
+            </div>
         </div>
         <!-- <my-toast id="toast"></my-toast> -->
     </div>

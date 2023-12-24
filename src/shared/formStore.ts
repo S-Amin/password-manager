@@ -1,3 +1,6 @@
+import { PassGeneratorService } from './passGeneratorService.ts'
+import { PassConfigStorage } from './storage.ts'
+
 interface InputParts<T> {
     loginInput: T
     domainInput: T
@@ -14,64 +17,80 @@ interface BtnParts<T> {
     saveBtn: T
 }
 
-type FromStorePartsId = InputParts<string> & BtnParts<string>
+interface ElementParts<T> {
+    passPreview: T
+}
+
+type FromStorePartsId = InputParts<string> &
+    BtnParts<string> &
+    ElementParts<string>
 
 export class FormStore {
-    private formPartsElm: InputParts<HTMLInputElement> & BtnParts<HTMLElement> =
-        {} as any
+    private partsElm: InputParts<HTMLInputElement> &
+        BtnParts<HTMLElement> &
+        ElementParts<HTMLElement> = {} as any
 
-    private generatedPass: string = ''
+    private generatedPass: string | null = ''
 
-    constructor(private formPartsId: FromStorePartsId) {
+    constructor(
+        private formPartsId: FromStorePartsId,
+        private passGeneratorService: PassGeneratorService,
+        private passConfigStorage: PassConfigStorage
+    ) {
         try {
             this.selectElementsFromDom()
             this.bindCopyHandler()
             this.bindResetHandler()
             this.bindInputRules()
             this.bingToggleMasterPassVisibility()
+            this.bindGenerateBtn()
+            this.bindVariantInput()
+            this.bindPassLengthInput()
         } catch (err) {
             console.error(err)
         }
     }
 
     get domain() {
-        return this.formPartsElm['domainInput']
+        return this.partsElm['domainInput']
     }
     get loginId() {
-        return this.formPartsElm['loginInput']
+        return this.partsElm['loginInput']
     }
     get passLength() {
-        return this.formPartsElm['passLengthInput']
+        return this.partsElm['passLengthInput']
     }
     get variant() {
-        return this.formPartsElm['variantInput']
+        return this.partsElm['variantInput']
     }
     get masterPass() {
-        return this.formPartsElm['masterPassInput']
+        return this.partsElm['masterPassInput']
     }
     get allParts() {
-        return this.formPartsElm
+        return this.partsElm
     }
 
     private selectElementsFromDom() {
         for (const [k, id] of Object.entries(this.formPartsId)) {
-            this.formPartsElm[k] = document.getElementById(id)
+            this.partsElm[k] = document.getElementById(id)
         }
     }
 
     private bindCopyHandler() {
-        this.formPartsElm['copyBtn'].addEventListener('click', () => {
-            navigator.clipboard.writeText(this.generatedPass).catch((err) => {
-                console.error('Error while copying to clipboard: ', err)
-            })
+        this.partsElm['copyBtn'].addEventListener('click', () => {
+            navigator.clipboard
+                .writeText(this.generatedPass || '')
+                .catch((err) => {
+                    console.error('Error while copying to clipboard: ', err)
+                })
         })
     }
 
     private bindResetHandler() {
-        this.formPartsElm['resetBtn'].addEventListener('click', () => {
-            for (const [_, p] of Object.entries(this.formPartsElm)) {
-                if (p instanceof HTMLInputElement) {
-                    p.value = ''
+        this.partsElm['resetBtn'].addEventListener('click', () => {
+            for (const [_, elm] of Object.entries(this.partsElm)) {
+                if (elm instanceof HTMLInputElement) {
+                    elm.value = elm.min
                 }
             }
         })
@@ -86,16 +105,17 @@ export class FormStore {
     }
 
     private bingToggleMasterPassVisibility() {
-        this.formPartsElm['toggleMasterPassVisibility'].addEventListener(
+        this.partsElm['toggleMasterPassVisibility'].addEventListener(
             'click',
             () => {
-                const elm = this.formPartsElm['toggleMasterPassVisibility']
-                const currentType = this.masterPass.type
-                const newType = currentType === 'text' ? 'password' : 'text'
-                this.formPartsElm['masterPassInput'].type = newType
+                const iconBtn = this.partsElm['toggleMasterPassVisibility']
 
-                const visibleIcon = elm.querySelector('#visibleIcon')
-                const hiddenIcon = elm.querySelector('#hiddenIcon')
+                const newType =
+                    this.masterPass.type === 'text' ? 'password' : 'text'
+                this.masterPass.type = newType
+
+                const visibleIcon = iconBtn.querySelector('#visibleIcon')
+                const hiddenIcon = iconBtn.querySelector('#hiddenIcon')
                 switch (newType) {
                     case 'password':
                         visibleIcon?.classList.add('hideElm')
@@ -109,5 +129,29 @@ export class FormStore {
                 }
             }
         )
+    }
+
+    private generatePass() {
+        const pass = this.passGeneratorService.passGenerator(this)
+        this.generatedPass = pass
+        this.partsElm['passPreview'].innerText = pass || ''
+    }
+
+    private bindGenerateBtn() {
+        this.partsElm['generateBtn'].addEventListener('click', () => {
+            this.generatePass()
+        })
+    }
+
+    private bindVariantInput() {
+        this.variant.addEventListener('change', () => {
+            this.generatePass()
+        })
+    }
+
+    private bindPassLengthInput() {
+        this.passLength.addEventListener('change', () => {
+            this.generatePass()
+        })
     }
 }

@@ -20,7 +20,7 @@ body.EXTENSION{
     background-color: #444;
 }
 
-#pass{
+#passPreview{
     white-space: normal;
     overflow-wrap: break-word;
 }
@@ -29,10 +29,10 @@ body.EXTENSION{
     padding-right: 40px;
 }
 
-#showHidePass{
-    position: absolute;
+.floatingIcon{
+    position: absolute !important;
     right: 7px;
-    cursor: pointer;
+    cursor: pointer !important;
 }
 
 .hideElm{
@@ -57,11 +57,7 @@ option.placeholder{
 .my-tooltip {
     position:relative;
 }
-  
-.my-tooltip:hover {
-    color: #11ACDC;
-/* font-size: 1.2rem; */
-}
+
 .my-tooltip:hover::before {
     content: attr(data-desc);
     font-size: .7rem;
@@ -81,4 +77,8 @@ option.placeholder{
     right: 50%;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 0;
+}
+
+.animation *{
+    transition: all 300ms ease-in-out;
 }

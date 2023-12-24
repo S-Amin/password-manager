@@ -10,11 +10,10 @@ interface BoundaryChars {
 
 export class PassGeneratorService {
     private PASS_LENGTH = 17
-    constructor(private formStore: FormStore) {}
+    constructor() {}
 
-    public passGenerator() {
-        const { passLength, domain, loginId, variant, masterPass } =
-            this.formStore
+    public passGenerator(formStore: FormStore) {
+        const { passLength, domain, loginId, variant, masterPass } = formStore
         const passLen = passLength.value || this.PASS_LENGTH
 
         const userCombo = `${masterPass.value}${domain.value}${loginId.value}${variant.value}`

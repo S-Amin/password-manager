@@ -3,8 +3,8 @@ import { ExtensionService } from '../extension/extension-worker.ts'
 import { PassConfigStorage, StoredConfig } from './storage.ts'
 import { PassConfig, UIMode } from './types.ts'
 import { FormStore } from './formStore.ts'
+import { PassGeneratorService } from './passGeneratorService.ts'
 
-let generatedPass = ''
 const uiMode: UIMode = chrome.tabs ? 'EXTENSION' : 'WEB'
 
 // const genBtn = document.getElementById('generateBtn')!
@@ -23,18 +23,42 @@ const uiMode: UIMode = chrome.tabs ? 'EXTENSION' : 'WEB'
 
 // onOpen()
 
-const formStore = new FormStore({
-    loginInput: 'loginId',
-    domainInput: 'domain',
-    masterPassInput: 'masterPass',
-    passLengthInput: 'passLength',
-    variantInput: 'variant',
-    generateBtn: 'generateBtn',
-    resetBtn: 'resetFrom',
-    copyBtn: 'copy',
-    saveBtn: 'saveConfig',
-    toggleMasterPassVisibility: 'showHidePass',
-})
+const formStore = new FormStore(
+    {
+        loginInput: 'loginId',
+        domainInput: 'domain',
+        masterPassInput: 'masterPass',
+        passLengthInput: 'passLength',
+        variantInput: 'variant',
+        generateBtn: 'generateBtn',
+        resetBtn: 'resetFrom',
+        copyBtn: 'copy',
+        saveBtn: 'saveConfig',
+        toggleMasterPassVisibility: 'showHidePass',
+        passPreview: 'passPreview',
+    },
+    new PassGeneratorService(),
+    new PassConfigStorage(uiMode)
+)
+
+registerInfoView()
+
+function registerInfoView() {
+    document.querySelectorAll('.floatingIcon').forEach((elm) => {
+        elm.addEventListener('click', (e) => {
+            const infoId = (e.target as HTMLElement).dataset.target
+            if (!infoId) return
+            const targetInfo = document.getElementById(infoId)
+            if (!targetInfo) return
+            targetInfo.scrollIntoView({ behavior: 'smooth' })
+            targetInfo.classList.add('text-white')
+            setTimeout(() => {
+                targetInfo.classList.remove('text-white')
+            }, 5000)
+        })
+    })
+}
+
 // setTimeout(() => {
 //     console.log('form store: ', formStore)
 // }, 2000)
@@ -79,7 +103,7 @@ const formStore = new FormStore({
 //         addInputRules([domainInput, loginIdInput])
 
 //         // the subscription will be executed at the end of the function because of async load
-//         configStorage.subscribe('LIST_LOADED', loadAllPassConfig)
+// configStorage.subscribe('LIST_LOADED', loadAllPassConfig)
 //     } catch (e) {
 //         console.error(e)
 //     }
@@ -90,11 +114,11 @@ function addUIMode() {
     body.classList.add(uiMode)
 }
 
-function copyHandler() {
-    navigator.clipboard.writeText(generatedPass).catch((err) => {
-        console.error('copy to clipboard has an error: ', err)
-    })
-}
+// function copyHandler() {
+//     navigator.clipboard.writeText(generatedPass).catch((err) => {
+//         console.error('copy to clipboard has an error: ', err)
+//     })
+// }
 
 // async function loadPassConfigHandler(event: any, store: PassConfigStorage) {
 //     const configString = event.target.value
