@@ -3,9 +3,10 @@
     "packageManager": "yarn@4.0.2",
     "private": true,
     "scripts": {
-        "server": "rm -rf dist/server && yarn tsc:server && node ./dist/server/server.js",
-        "build:frontend": "rm -rf public/js && yarn tsc:frontend && webpack --mode production",
-        "start:frontend": "rm -rf public/js && yarn tsc:frontend && webpack --mode development --watch",
+        "setup:production": "yarn frontend:build && yarn server:dev",
+        "server:dev": "rm -rf dist/server && yarn tsc:server && node ./dist/server/server.js",
+        "frontend:build": "rm -rf public/js && yarn tsc:frontend && webpack --mode production",
+        "frontend:dev": "rm -rf public/js && yarn tsc:frontend && webpack --mode development --watch",
         "tsc:frontend": "tsc --project tsconfig.frontend.json",
         "tsc:server": "tsc --project tsconfig.server.json",
         "clean": "rm -rf dist && rm -rf public/js"
