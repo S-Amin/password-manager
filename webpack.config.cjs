@@ -1,4 +1,5 @@
 const path = require('path')
+const fs = require('fs')
 const PnpWebpackPlugin = require(`pnp-webpack-plugin`)
 
 module.exports = (env, arg) => ({
@@ -6,13 +7,13 @@ module.exports = (env, arg) => ({
     devtool: 'inline-source-map',
     entry: {
         main: './src/shared/popup.ts',
+        // 'components/toast/toast': './src/components/toast/toast.ts',
+        ...getAllFilesConfig('./src/components'),
     },
     output: {
         filename: '[name].js',
-        path: path.resolve(__dirname, './public/js'),
+        path: path.resolve(__dirname, './public/js/'),
     },
-    // devtool: "source-map",
-    // mode: "production",
     module: {
         rules: [
             {
@@ -44,3 +45,30 @@ module.exports = (env, arg) => ({
         plugins: [PnpWebpackPlugin.moduleLoader(module)],
     },
 })
+
+function getAllFilesConfig(directoryPath) {
+    let config = {}
+    const entities = fs.readdirSync(directoryPath)
+    entities.forEach((e) => {
+        const fullPath = `${directoryPath}/${e}` //path.join(directoryPath, e)
+        const stats = fs.statSync(fullPath)
+        const newConfig = stats.isDirectory()
+            ? getAllFilesConfig(fullPath)
+            : getTSFilesConfig(fullPath)
+
+        config = {
+            ...config,
+            ...newConfig,
+        }
+    })
+    console.log({ config })
+
+    return config
+}
+
+function getTSFilesConfig(pathFile) {
+    if (path.extname(pathFile) !== '.ts') return {}
+    const { dir, name } = path.parse(pathFile)
+    const distPath = path.join(dir, name).replace('src/', '')
+    return { [distPath]: pathFile }
+}

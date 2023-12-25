@@ -62,3 +62,5 @@ export class ToastMessage extends HTMLElement {
 
     // private autoClose() {}
 }
+
+window.customElements.define(ToastMessage.tagName, ToastMessage)
