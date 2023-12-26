@@ -8,6 +8,7 @@
         "module": "Node16",
         "moduleResolution": "Node16"
     },
+    "include": ["./declaration.d.ts"],
     "exclude": [
         "./webpack.config.cjs",
         "./src/server",

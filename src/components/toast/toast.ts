@@ -1,6 +1,7 @@
+import style from './toast.scss'
+
 const template = document.createElement('template')
 template.innerHTML = `
-<link rel="stylesheet" type="text/css" href="toast.css">
 <div id='toast-body'>
     <p id='message'></p>
 </div>
@@ -53,9 +54,16 @@ export class ToastMessage extends HTMLElement {
     private createUI() {
         // attach to the Shadow DOM
         const root = this.attachShadow({ mode: 'open' })
+        this.addStyleToShadowDom(root)
         root.appendChild(template.content.cloneNode(true))
         this.messageTag = root.querySelector('#message')!
         this.messageTag.innerHTML = this.message
+    }
+
+    private addStyleToShadowDom(root: ShadowRoot) {
+        const styleSheet = new CSSStyleSheet()
+        styleSheet.replaceSync(style)
+        root.adoptedStyleSheets = [styleSheet]
     }
 
     // private showToast() {}
