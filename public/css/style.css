@@ -1,7 +1,10 @@
 body.EXTENSION{
     width: 300px;
 }
-
+body.EXTENSION .description-section,
+body.EXTENSION .floatingIcon {
+    display: none;
+}
 
 
 .copy-btn{
@@ -81,4 +84,14 @@ option.placeholder{
 
 .animation *{
     transition: all 300ms ease-in-out;
+}
+
+#saveConfig #doneIcon {
+    display: none;
+}
+#saveConfig:disabled #doneIcon {
+    display: block;
+}
+#saveConfig:disabled #saveIcon {
+    display: none;
 }

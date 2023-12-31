@@ -33,7 +33,7 @@ type FromStorePartsId = InputParts<string> &
 
 export class FormStore {
     private partsElm: InputParts<HTMLInputElement> &
-        BtnParts<HTMLElement> &
+        BtnParts<HTMLButtonElement> &
         ElementParts<HTMLElement> &
         SelectParts<HTMLSelectElement> = {} as any
 
@@ -181,9 +181,12 @@ export class FormStore {
     }
 
     private bindSaveBtn() {
-        this.partsElm['saveBtn'].addEventListener('click', () =>
+        const btn = this.partsElm['saveBtn']
+        btn.addEventListener('click', () => {
+            btn.disabled = true
+            setTimeout(() => (btn.disabled = false), 1000)
             this.savePassConfig()
-        )
+        })
     }
 
     private loadPassConfig(configStr: string) {

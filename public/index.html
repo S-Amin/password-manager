@@ -64,7 +64,8 @@
             </div>
             <div class="d-flex justify-content-between">
                 <button id="saveConfig" class="my-tooltip btn btn-dark btn-sm" data-desc="Save Pass">
-                    <img width="20" src="./public/icons/save.svg">
+                    <img id="saveIcon" width="20" src="./public/icons/save.svg">
+                    <img id="doneIcon" width="20" src="./public/icons/done.svg">
                 </button>
                 <button id="resetFrom" class="my-tooltip btn btn-dark btn-sm" data-desc="Reset From">
                     <img width="20" src="./public/icons/refresh.svg">
@@ -82,8 +83,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 text-muted animation">
-            <my-toast id="toast"></my-toast>
+        <div class="col-md-6 text-muted animation description-section ">
+            <my-toast id="toast">test</my-toast>
 
             <h4>How to use:</h4>
             <p>

@@ -1,11 +1,12 @@
 {
-  "compilerOptions": {
-    "rootDir": "./src",
-    "outDir": "./dist/",
-    "noImplicitAny": true,
-    "sourceMap": true,
-    "allowJs": true,
-    "lib": ["ES2015", "DOM"],
-    "moduleResolution": "Node"
-  }
+    "compilerOptions": {
+        "rootDir": "./src",
+        "outDir": "./dist/",
+        "noImplicitAny": true,
+        "sourceMap": true,
+        "allowJs": true,
+        "lib": ["ES2015", "DOM"],
+        "moduleResolution": "Node"
+    },
+    "include": ["./src/declaration.d.ts"]
 }

@@ -72,7 +72,6 @@ function getAllFilesConfig(directoryPath) {
             ...newConfig,
         }
     })
-    console.log({ config })
 
     return config
 }
