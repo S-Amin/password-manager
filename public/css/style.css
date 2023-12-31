@@ -6,6 +6,13 @@ body.EXTENSION .floatingIcon {
     display: none;
 }
 
+.description-link{
+    display: none;
+}
+body.EXTENSION .description-link{
+    display: block;
+}
+
 
 .copy-btn{
     position: absolute;
