@@ -17,25 +17,23 @@
                 <h3>Password Manager</h3>
                 <form>
                     <div class="mb-2 relative">
-                        <input id="domain" type="text" class="form-control form-control-sm"
-                            placeholder="Name Of the site or app">
+                        <input id="domain" type="text" class="form-control" placeholder="Name Of the site or app">
                         <img class="floatingIcon" src="/public/icons/help.svg" alt="" data-target="domainInfo">
                     </div>
                     <div class="mb-2 relative">
-                        <input id="loginId" type="text" class="form-control form-control-sm" placeholder="login Info">
+                        <input id="loginId" type="text" class="form-control" placeholder="login Info">
                         <img class="floatingIcon" src="/public/icons/help.svg" alt="" data-target="loginIdInfo">
                     </div>
                     <div class="mb-2 relative">
-                        <input id="masterPass" type="password" class="form-control form-control-sm"
-                            placeholder="Master Password">
+                        <input id="masterPass" type="password" class="form-control" placeholder="Master Password">
                         <button type="button" id="showHidePass"
-                            class="my-tooltip my-tooltip-left btn btn-sm p-0 border-0 floatingIcon"
-                            data-desc="Show Pass ">
+                            class="my-tooltip my-tooltip-left btn btn-sm p-2 pe-1 border-0 floatingIcon"
+                            data-desc="Show Pass">
                             <img id="visibleIcon" class="hideElm" width="20" src="./public/icons/visible.svg">
                             <img id="hiddenIcon" width="20" src="./public/icons/hidden.svg">
                         </button>
                     </div>
-                    <div class="input-group input-group-sm mb-2">
+                    <div class="input-group mb-2">
                         <div class="input-group-text my-tooltip" data-desc="Length of Pass">Length</div>
                         <input id="passLength" min="17" max="40" type="number" class="form-control" value="17">
                     </div>
@@ -45,7 +43,7 @@
                         <button id="generateBtn" type="button" class="btn btn-sm btn-primary">Get Password</button>
                     </div>
                     <div class="col-6">
-                        <div class="input-group input-group-sm my-tooltip my-tooltip-left" data-desc="Variant of Pass">
+                        <div class="input-group my-tooltip my-tooltip-left" data-desc="Variant of Pass">
                             <div class="input-group-text">#</div>
                             <input id="variant" min="1" value="1" type="number" class="form-control"
                                 placeholder="Variant">
@@ -56,8 +54,7 @@
             <div class="my-3">
                 <div class="pass-preview d-flex align-items-center rounded relative">
                     <pre id="passPreview" role="textbox" class="p-2 form-control-plaintext"></pre>
-                    <button id="copy" type="button" class="my-tooltip my-tooltip-left btn btn-sm m-2 ml-auto"
-                        data-desc="Copy Pass">
+                    <button id="copy" type="button" class="btn btn-sm m-2 ml-auto" data-desc="Copy Pass">
                         <img width="20" src="./public/icons/copy.svg">
                     </button>
                 </div>

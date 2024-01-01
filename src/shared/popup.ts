@@ -1,10 +1,9 @@
-import { ExtensionService } from '../extension/extension-worker.ts'
 import { PassConfigStorage } from './storage.ts'
 import { UIMode } from './types.ts'
 import { FormStore } from './formStore.ts'
 import { PassGeneratorService } from './passGeneratorService.ts'
 
-const uiMode: UIMode = chrome.tabs ? 'EXTENSION' : 'WEB'
+const uiMode: UIMode = getEnv()
 
 new FormStore(
     {
@@ -66,4 +65,11 @@ function registerInfoView() {
 function addUIMode() {
     const body = document.getElementsByTagName('body')[0]
     body.classList.add(uiMode)
+}
+
+function getEnv(): UIMode {
+    if (typeof chrome !== 'undefined') {
+        return chrome.tabs ? 'EXTENSION' : 'WEB'
+    }
+    return 'WEB'
 }

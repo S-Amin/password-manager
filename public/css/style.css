@@ -20,6 +20,35 @@ body.EXTENSION .description-link{
     right: 0;
 }
 
+#copy{
+    position: relative;
+}
+#copy::before{
+    content: 'copied';
+    visibility: hidden;
+    opacity: 0;
+    font-size: .7rem;
+    color: black;
+    border-radius: 5px;
+    border-bottom-right-radius: 0;
+    background-color: #c589f9;
+    top: -25px;
+    left: auto;
+    right: 50%;
+    position: absolute;
+    z-index: 1000;
+    padding: 2px 4px;
+    min-width: 100px;
+    transition: all 700ms ease-out 500ms;
+}
+
+#copy:active::before {
+    visibility: visible;
+    opacity: 1;
+    transition: all 0s ease 0s;
+}
+
+
 .relative{
     position: relative;
     display: flex;
