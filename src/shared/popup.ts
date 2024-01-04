@@ -2,13 +2,14 @@ import { PassConfigStorage } from './storage.ts'
 import { UIMode } from './types.ts'
 import { FormStore } from './formStore.ts'
 import { PassGeneratorService } from './passGeneratorService.ts'
+import { ExtensionService } from '../extension/extension-worker.ts'
 
 onOpen()
 
 function onOpen() {
     const uiMode: UIMode = getEnv()
     addUIMode(uiMode)
-    new FormStore(
+    const form = new FormStore(
         {
             loginInput: 'loginId',
             domainInput: 'domain',
@@ -26,6 +27,11 @@ function onOpen() {
         new PassGeneratorService(),
         new PassConfigStorage(uiMode)
     )
+
+    if (getEnv() === 'EXTENSION') {
+        new ExtensionService(form.domain, form.loginId)
+    }
+
     registerInfoView()
 }
 

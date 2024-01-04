@@ -1,4 +1,5 @@
 import { MESSAGE_TYPE, type MessagePayload } from '../shared/types.ts'
+import { FormFinderService } from './webscraper-service.ts'
 
 chrome.runtime.onMessage.addListener(
     (msg: MessagePayload, _sender, sendResponse) => {
@@ -19,10 +20,15 @@ function getDomainUrl(url: string) {
     console.log(urlObj)
 }
 
+const scraper = new FormFinderService()
+
 function getLoginId() {
-    const loginId = document.querySelector(
-        'input[type=email]'
+    const passInput = document.querySelector(
+        'input[type="password" i]'
     )! as HTMLInputElement
 
-    return loginId.value
+    const loginId = scraper.searchIn(passInput)
+    if (!loginId) return ''
+
+    return (loginId as HTMLInputElement).value
 }

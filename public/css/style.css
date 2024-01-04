@@ -2,7 +2,7 @@ body.EXTENSION{
     width: 300px;
 }
 body.EXTENSION .description-section,
-body.EXTENSION .floatingIcon {
+body.EXTENSION [data-target] {
     display: none;
 }
 

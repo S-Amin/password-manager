@@ -6,7 +6,11 @@ export class ExtensionService {
         private domain: HTMLInputElement,
         private loginId: HTMLInputElement
     ) {
-        this.init()
+        try {
+            this.init()
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     public init() {
