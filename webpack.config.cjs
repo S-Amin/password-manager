@@ -6,13 +6,13 @@ module.exports = (env, arg) => ({
     mode: arg.mode,
     devtool: 'inline-source-map',
     entry: {
-        main: './src/shared/popup.ts',
-        // 'components/toast/toast': './src/components/toast/toast.ts',
-        ...getAllFilesConfig('./src/components'),
+        'public/js/main': './src/shared/popup.ts',
+        ...getAllFilesConfig('./src/components', '/public/js'),
+        ...getAllFilesConfig('./src/extension', '/dist'),
     },
     output: {
         filename: '[name].js',
-        path: path.resolve(__dirname, './public/js/'),
+        path: __dirname,
     },
     module: {
         rules: [
@@ -57,15 +57,15 @@ module.exports = (env, arg) => ({
     },
 })
 
-function getAllFilesConfig(directoryPath) {
+function getAllFilesConfig(directoryPath, outPutPrefix = '') {
     let config = {}
     const entities = fs.readdirSync(directoryPath)
     entities.forEach((e) => {
         const fullPath = `${directoryPath}/${e}` //path.join(directoryPath, e)
         const stats = fs.statSync(fullPath)
         const newConfig = stats.isDirectory()
-            ? getAllFilesConfig(fullPath)
-            : getTSFilesConfig(fullPath)
+            ? getAllFilesConfig(fullPath, outPutPrefix)
+            : getTSFilesConfig(fullPath, outPutPrefix)
 
         config = {
             ...config,
@@ -76,9 +76,16 @@ function getAllFilesConfig(directoryPath) {
     return config
 }
 
-function getTSFilesConfig(pathFile) {
+function getTSFilesConfig(pathFile, outPutPrefix) {
     if (path.extname(pathFile) !== '.ts') return {}
     const { dir, name } = path.parse(pathFile)
-    const distPath = path.join(dir, name).replace('src/', '')
-    return { [distPath]: pathFile }
+    const distPath = path
+        .join(dir, name)
+        .replace(/^src/, '')
+        .replace(/^\/|\/$/g, '')
+    const trimmedPrefix = outPutPrefix.replace(/^\/|\/$/g, '')
+    const finalPath = `${trimmedPrefix}/${distPath}`
+    return { [finalPath]: pathFile }
 }
+
+// console.log(getAllFilesConfig('./src/extension', 'public/js'))
