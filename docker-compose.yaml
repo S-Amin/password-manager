@@ -11,4 +11,4 @@ services:
       - "3000:3000"   # ports need to be available outside the container
     volumes:
       - .:/app    # add the root of the project to the root of the working directory
-    command:  yarn server:dev   # the command that should be run after container is built 
+    command:  yarn setup:prod   # the command that should be run after container is built 
