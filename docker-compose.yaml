@@ -8,6 +8,4 @@ services:
     working_dir: /app   # path to the folder that project is going to be available inside the container
     ports:
       - "3000:3000"   # ports need to be available outside the container
-    volumes:
-      - .:/app    # add the root of the project to the root of the working directory
     command:  yarn setup:prod   # the command that should be run after container is built 
