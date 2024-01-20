@@ -16,11 +16,12 @@ fastify.register(fastifyStatic, {
 
 // Declare a route
 fastify.get('/', (_request, reply) => {
-    reply.send({ hello: 'world' })
+    const file = fs.readFileSync('./pages/home.html')
+    reply.type('text/html').send(file)
 })
 
 fastify.get('/password-manager', (_request, reply) => {
-    const file = fs.readFileSync('./index.html')
+    const file = fs.readFileSync('./pages/password-manager.html')
     reply.type('text/html').send(file)
 })
 

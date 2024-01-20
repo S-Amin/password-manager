@@ -1,0 +1,52 @@
+@font-face {
+    font-family: 'white-rabbit';
+    font-style: normal;
+    src:  URL("../fonts/whitrabt.woff") format('woff');
+  }
+
+body, body *{
+    font-family:  'white-rabbit', monospace;
+    color: #38c11c;
+    line-height: 30px;
+    font-size: 17px;
+    letter-spacing: 2px;
+    white-space: normal;
+}
+
+a {
+    text-decoration-line: none;
+    line-break: anywhere;
+    display: block;
+    width: fit-content;
+}
+
+a[href] {
+    text-decoration-line: underline;
+}
+
+pre{
+    position: relative;
+    margin: 0;
+}
+
+.typing{
+    flex-direction: row;
+    align-items: center;
+}
+.typing::after{
+    content: '';
+    display: inline-block;
+    height: 24px;
+    width: 9px;
+    background-color: #38c11c;
+    margin-bottom: -6px;
+}
+
+.typing.animating::after{
+    animation: blink 600ms step-end infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
