@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Hash Password Manager",
     "description": "Using Hash function for generating password",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "action": {
         "default_popup": "./pages/password-manager.html",
         "default_title": "pass"
