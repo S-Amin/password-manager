@@ -8,6 +8,7 @@ module.exports = (env, arg) => ({
     entry: {
         'public/js/main': './src/shared/popup.ts',
         ...getAllFilesConfig('./src/components', '/public/js'),
+        ...getAllFilesConfig('./src/frontend', '/public/js'),
         ...getAllFilesConfig('./src/extension', '/dist'),
     },
     output: {
