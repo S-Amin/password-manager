@@ -5,6 +5,8 @@ import fs from 'node:fs'
 
 const fastify = Fastify({
     logger: true,
+    ignoreTrailingSlash: true,
+    caseSensitive: false,
 })
 
 const root = path.join(__dirname, '../../public')
@@ -20,7 +22,7 @@ fastify.get('/', (_request, reply) => {
     reply.type('text/html').send(file)
 })
 
-fastify.get('/password-manager', (_request, reply) => {
+fastify.get('/password-manager/', (_request, reply) => {
     const file = fs.readFileSync('./pages/password-manager.html')
     reply.type('text/html').send(file)
 })
