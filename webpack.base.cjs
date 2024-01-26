@@ -2,17 +2,11 @@ const path = require('path')
 const fs = require('fs')
 const PnpWebpackPlugin = require(`pnp-webpack-plugin`)
 
-module.exports = (env, arg) => ({
+const getBasicConfig = (env, arg) => ({
     mode: arg.mode,
     devtool: 'inline-source-map',
-    entry: {
-        'public/js/main': './src/shared/popup.ts',
-        ...getAllFilesConfig('./src/components', '/public/js'),
-        ...getAllFilesConfig('./src/frontend', '/public/js'),
-        ...getAllFilesConfig('./src/extension', '/dist'),
-    },
     output: {
-        filename: '[name].js',
+        filename: `[name]${arg.mode === 'production' ? '-[hash]' : ''}.js`,
         path: __dirname,
     },
     module: {
@@ -90,3 +84,5 @@ function getTSFilesConfig(pathFile, outPutPrefix) {
 }
 
 // console.log(getAllFilesConfig('./src/extension', 'public/js'))
+
+module.exports = { getBasicConfig, getAllFilesConfig }
