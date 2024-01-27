@@ -3,12 +3,15 @@
     "packageManager": "yarn@4.0.2",
     "private": true,
     "scripts": {
-        "setup:prod": "yarn frontend:build && yarn server:dev",
-        "server:dev": "rm -rf dist/server && yarn tsc:server && node ./dist/server/server.js",
-        "frontend:build": "rm -rf public/js && yarn tsc:frontend && webpack --mode production",
-        "frontend:dev": "rm -rf public/js && yarn tsc:frontend && webpack --mode development --watch",
+        "setup:prod": "yarn frontend:prod && yarn server",
+        "server": "rm -rf dist/server && yarn tsc:server && node ./dist/server/server.js",
+        "frontend:dev": "rm -rf public/js && yarn tsc:frontend && webpack --config webpack.frontend.cjs --mode development --watch",
+        "frontend:prod": "rm -rf public/js && yarn tsc:frontend && webpack --config webpack.frontend.cjs --mode production",
         "tsc:frontend": "tsc --project tsconfig.frontend.json",
         "tsc:server": "tsc --project tsconfig.server.json",
+        "extension:build": "yarn clean && yarn extension:prod && ./src/extension/bundle.sh",
+        "extension:prod": "webpack --config webpack.extension.cjs --mode production",
+        "extension:dev": "webpack --config webpack.extension.cjs --mode development",
         "clean": "rm -rf dist && rm -rf public/js"
     },
     "dependencies": {
@@ -20,6 +23,7 @@
         "@types/chrome": "^0.0.253",
         "@types/node": "^20.10.4",
         "css-loader": "^6.8.1",
+        "html-webpack-plugin": "^5.6.0",
         "pnp-webpack-plugin": "^1.7.0",
         "sass": "^1.69.5",
         "sass-loader": "^13.3.2",
