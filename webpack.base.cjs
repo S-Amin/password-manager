@@ -6,7 +6,7 @@ const getBasicConfig = (env, arg) => ({
     mode: arg.mode,
     devtool: 'inline-source-map',
     output: {
-        filename: `[name]${arg.mode === 'production' ? '-[hash]' : ''}.js`,
+        // filename: `[name]${arg.mode === 'production' ? '-[hash]' : ''}.js`,
         path: __dirname,
     },
     module: {

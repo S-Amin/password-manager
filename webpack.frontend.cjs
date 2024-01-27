@@ -1,21 +1,34 @@
-// const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { getBasicConfig, getAllFilesConfig } = require('./webpack.base.cjs')
 
 module.exports = (env, arg) => {
-    const baseConfig = getBasicConfig(env, arg)
+    const isHashed = arg.mode === 'production' ? '-[contenthash]' : ''
+    const configObj = getBasicConfig(env, arg)
 
-    // baseConfig.plugins = [
-    //     new HtmlWebpackPlugin({
-    //         filename: 'public/password-manager.html',
-    //         template: 'pages/password-manager.html',
-    //     }),
-    // ]
-    return {
-        ...baseConfig,
-        entry: {
-            'public/js/main': './src/shared/popup.ts',
-            ...getAllFilesConfig('./src/components', '/public/js'),
-            ...getAllFilesConfig('./src/frontend', '/public/js'),
+    configObj.entry = {
+        main: {
+            import: './src/shared/popup.ts',
+            filename: `public/js/main${isHashed}.js`,
+        },
+        home: {
+            import: './src/frontend/home.ts',
+            filename: `public/js/frontend/home${isHashed}.js`,
         },
     }
+    configObj.plugins = [
+        new HtmlWebpackPlugin({
+            chunks: ['main'],
+            filename: 'pages/password-manager.html',
+            template: 'pages/template/password-manager.html',
+            cache: true,
+        }),
+        new HtmlWebpackPlugin({
+            chunks: ['home'],
+            filename: 'pages/home.html',
+            template: 'pages/template/home.html',
+            cache: true,
+        }),
+    ]
+
+    return configObj
 }

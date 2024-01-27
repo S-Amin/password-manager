@@ -3,13 +3,13 @@
     "packageManager": "yarn@4.0.2",
     "private": true,
     "scripts": {
-        "setup:prod": "yarn frontend:prod && yarn server:dev",
-        "server:dev": "rm -rf dist/server && yarn tsc:server && node ./dist/server/server.js",
+        "setup:prod": "yarn frontend:prod && yarn server",
+        "server": "rm -rf dist/server && yarn tsc:server && node ./dist/server/server.js",
         "frontend:dev": "rm -rf public/js && yarn tsc:frontend && webpack --config webpack.frontend.cjs --mode development --watch",
         "frontend:prod": "rm -rf public/js && yarn tsc:frontend && webpack --config webpack.frontend.cjs --mode production",
         "tsc:frontend": "tsc --project tsconfig.frontend.json",
         "tsc:server": "tsc --project tsconfig.server.json",
-        "extension:build": "yarn clean && yarn extension:dev && ./src/extension/bundle.sh",
+        "extension:build": "yarn clean && yarn extension:prod && ./src/extension/bundle.sh",
         "extension:prod": "webpack --config webpack.extension.cjs --mode production",
         "extension:dev": "webpack --config webpack.extension.cjs --mode development",
         "clean": "rm -rf dist && rm -rf public/js"
